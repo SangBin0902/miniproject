@@ -73,10 +73,10 @@ public class TodoList {
         }
     }
     private void process4(){
+        isRunning=false;
         for(int i =0; i<participantTodoLists.size(); i++){
             System.out.println("값");
         }
-        isRunning=false;
     }
     public void run() {
         while(isRunning) {
