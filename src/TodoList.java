@@ -5,7 +5,8 @@ public class TodoList {
     Map<String, TodoList> participantTodoLists = new HashMap<>();
     TodoList todoList;
     Scanner sc = new Scanner(System.in);
-    private int processNum=1;
+    private int processNum = 1;
+    boolean isRunning=true;
 
     public TodoList() {
         this.todos = new ArrayList<>();
@@ -20,14 +21,14 @@ public class TodoList {
     }
 
     public Todo getTodo() {
-        for(Todo todo : todos) {
+        for (Todo todo : todos) {
             return todo;
         }
         return null;
     }
 
     public void complete(int index) {
-        if(index >=1 ) {
+        if (index >= 1) {
             Todo todo = todos.get(index - 1);
             todo.completed();
             System.out.println("Status: 완료");
@@ -35,13 +36,14 @@ public class TodoList {
     }
 
     public void printTodos() {
-        for(Todo todo : todos) {
+        for (Todo todo : todos) {
             System.out.println(todo);
         }
     }
-    private void process1(){
+
+    private void process1() {
         System.out.print("이름을 입력하세요 : ");
-        String name = sc.nextLine();
+        String name = sc.next();
         todoList = participantTodoLists.get(name);
         if (todoList == null) {
             todoList = new TodoList();
@@ -50,35 +52,42 @@ public class TodoList {
         }
         processNum++;
     }
-    private void process2(){
+
+    private void process2() {
         System.out.println("1. 주간 보고서 작성, 2. 이메일 확인 및 응답, 3. 회의 준비, 4. 프로젝트 계획서 수정, 5. 팀 멤버와의 1:1 면담");
         System.out.print("Title 번호: ");
         int titleNum = sc.nextInt();
         todoList.complete(titleNum);
         processNum++;
     }
-    private void process3(){
+
+    private void process3() {
         System.out.println("종료여부 : ");
-        String next = sc.nextLine();
-        if(next.equals("c")){
-            processNum=2;
-        }else if(next.equals("q")){
-            processNum=1;
-        }else if(next.equals("x")){
-            processNum=4;
+        String next = sc.next();
+        if (next.equals("c")) {
+            processNum = 2;
+        } else if (next.equals("q")) {
+            processNum = 1;
+        } else if (next.equals("x")) {
+            processNum = 4;
         }
     }
-    public void run(){
-        while(true){
-            switch(processNum){
-                case 1 :
-                    process1();
-                case 2 :
-                    process2();
-                case 3 :
-                    process3();
-                case 4 :
-                    break;
+    private void process4(){
+        for(int i =0; i<participantTodoLists.size(); i++){
+            System.out.println("값");
+        }
+        isRunning=false;
+    }
+    public void run() {
+        while(isRunning) {
+            if(processNum==1){
+                process1();
+            }else if(processNum==2){
+                process2();
+            }else if(processNum==3){
+                process3();
+            }else if(processNum==4){
+                process4();
             }
         }
     }
